@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<XMLDB PATH="admin/tool/resetsettings/db" VERSION="20200215" COMMENT="XMLDB file for Moodle tool/resetsettings"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
+>
+    <TABLES>
+        <TABLE NAME="tool_resetsettings_settings" COMMENT="Bulk reset schedules">
+            <FIELDS>
+                <FIELD NAME="id" SEQUENCE="true" TYPE="int" NOTNULL="true" LENGTH="11" />
+                <FIELD NAME="name" SEQUENCE="false" TYPE="char" LENGTH="255" NOTNULL="true" />
+                <FIELD NAME="data" SEQUENCE="false" TYPE="text" NOTNULL="true" />
+                <FIELD NAME="created_dt" SEQUENCE="false" TYPE="int" NOTNULL="true" LENGTH="11" />
+            </FIELDS>
+            <KEYS>
+                <KEY NAME="primary" TYPE="primary" FIELDS="id" />
+            </KEYS>
+            <INDEXES>
+                <INDEX NAME="idx_name" UNIQUE="false" FIELDS="name" />
+            </INDEXES>
+        </TABLE>
+    </TABLES>
+</XMLDB>
