@@ -1,4 +1,27 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+/**
+ * Page for editing an existing settings template.
+ *
+ * @package    tool_resetsettings
+ * @copyright  2020 Ponlawat Weerapanpisit <ponlawat_w@outlook.co.th>, Adam Jenkins <adam@wisecat.net>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 
 require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
@@ -8,10 +31,17 @@ require_once(__DIR__ . '/classes/settings_form.php');
 admin_externalpage_setup('resetsettings');
 
 $id = required_param('id', PARAM_INT);
+
+/** @var \moodle_page $PAGE */
+$PAGE;
+$PAGE->set_url(new \core\url('/admin/tool/resetsettings/edit.php', ['id' => $id]));
+$PAGE->set_title(get_string('template', 'tool_resetsettings'));
+$PAGE->set_heading(get_string('template', 'tool_resetsettings'));
+
 $template = optional_param('template', 'blank', PARAM_TEXT);
 
-$PAGE->set_context(context_system::instance());
-$PAGE->set_url(new moodle_url('/admin/tool/resetsettings/edit.php', ['id' => $id]));
+/** @var \moodle_db $DB */
+$DB;
 
 $setting = null;
 $usecustomtemplate = is_numeric($template) && $template;
@@ -23,7 +53,7 @@ if ($id || $usecustomtemplate) {
         $setting->name = get_string('clonedsettingname', 'tool_resetsettings', $setting->name);
     }
     if (!$setting) {
-        throw new moodle_exception('Settings not found');
+        throw new \core\exception\moodle_exception('Settings not found');
     }
 }
 
@@ -34,7 +64,7 @@ if (!$settingsform->is_submitted()) {
         $settingsform->load_defaults();
     }
 } else if ($settingsform->is_cancelled()) {
-    redirect(new moodle_url('/admin/tool/resetsettings/index.php'));
+    redirect(new \core\url('/admin/tool/resetsettings/templates.php'));
     exit;
 } else if ($settingsform->is_validated()) {
     $data = $settingsform->get_data();
@@ -55,12 +85,12 @@ if (!$settingsform->is_submitted()) {
         $setting->data = $json;
         $DB->insert_record('tool_resetsettings_settings', $setting);
     }
-    redirect(new moodle_url('/admin/tool/resetsettings/index.php'));
+    redirect(new \core\url('/admin/tool/resetsettings/templates.php'));
     exit;
 }
 
+/** @var \core\output\core_renderer $OUTPUT */
+$OUTPUT;
 echo $OUTPUT->header();
-
 $settingsform->display();
-
 echo $OUTPUT->footer();

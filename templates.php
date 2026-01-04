@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Language string
+ * Reset setting template list page
  *
  * @package    tool_resetsettings
  * @copyright  2020 Ponlawat Weerapanpisit <ponlawat_w@outlook.co.th>, Adam Jenkins <adam@wisecat.net>
@@ -23,18 +23,26 @@
  */
 
 
-$string['actions'] = 'Actions';
-$string['basedontemplate'] = 'Based on {$a}';
-$string['blanktemplate'] = 'Blank settings';
-$string['clonedsettingname'] = '{$a} (Copy)';
-$string['copy'] = 'Copy';
-$string['createddt'] = 'Created Date';
-$string['deleteconfirmation'] = 'Delete Confirmation';
-$string['deleteconfirmationtext'] = 'Are you sure you want to delete setting "{$a}"?';
-$string['moodledefaulttemplate'] = 'Based on Moodle default reset settings';
-$string['newsettings'] = 'Create new settings';
-$string['nosettings'] = 'There are no any settings.';
-$string['pluginname'] = 'Reset Settings';
-$string['resetsettings'] = 'Configure course reset settings';
-$string['settingsname'] = 'Settings Name';
-$string['template'] = 'Settings Template';
+require_once(__DIR__ . '/../../../config.php');
+require_once($CFG->libdir . '/adminlib.php');
+require_once(__DIR__ . '/lib.php');
+require_once(__DIR__ . '/classes/newsettings_form.php');
+
+admin_externalpage_setup('resetsettings');
+
+/** @var \moodle_page $PAGE */
+$PAGE;
+$PAGE->set_url(new \core\url('/admin/tool/resetsettings/edit.php', ['id' => $id]));
+$PAGE->set_title(get_string('pluginname', 'tool_resetsettings'));
+$PAGE->set_heading(get_string('pluginname', 'tool_resetsettings'));
+
+/** @var \core\output\core_renderer $OUTPUT */
+$OUTPUT;
+
+echo $OUTPUT->header();
+$table = tool_resetsettings_getsettingstable();
+echo \core\output\html_writer::table($table);
+echo \core\output\html_writer::start_tag('hr');
+$newsettingsform = new tool_resetsettings_newsettings_form();
+$newsettingsform->display();
+echo $OUTPUT->footer();
