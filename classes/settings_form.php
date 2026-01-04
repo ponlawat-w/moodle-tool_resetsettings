@@ -15,20 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Reset Settings
+ * Reset settings template form.
  *
  * @package    tool_resetsettings
- * @copyright  2020 Ponlawat Weerapanpisit, Adam Jenkins <adam@wisecat.net>
+ * @copyright  2020 Ponlawat Weerapanpisit <ponlawat_w@outlook.co.th>, Adam Jenkins <adam@wisecat.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
+defined('MOODLE_INTERNAL') || die();
 require_once($CFG->dirroot . '/admin/tool/bulkreset/classes/resetsettings_form.php');
 
+/**
+ * Form for configuring reset settings template.
+ */
 class tool_resetsettings_settings_form extends tool_bulkreset_resetsettings_form {
+    /**
+     * @var int $id settings template ID
+     */
     private $id;
 
-    public function __construct ($id, $setting = null) {
+    /**
+     * Constructor
+     *
+     * @param int $id settings template ID (in case of edit)
+     * @param \stdClass $setting default values
+     */
+    public function __construct($id, $setting = null) {
         $this->id = $id;
 
         parent::__construct(null, true);
@@ -42,6 +54,11 @@ class tool_resetsettings_settings_form extends tool_bulkreset_resetsettings_form
         }
     }
 
+    /**
+     * Form definition
+     *
+     * @return void
+     */
     public function definition() {
         $mform =& $this->_form;
         $mform->addElement('text', 'settingsname', get_string('settingsname', 'tool_resetsettings'));
@@ -49,7 +66,7 @@ class tool_resetsettings_settings_form extends tool_bulkreset_resetsettings_form
         $mform->setDefault('settingsname', userdate(time(), get_string('strftimedatefullshort', 'langconfig')));
         $mform->addRule('settingsname', null, 'required');
 
-        parent::definition();
+        parent::defaultdefinition();
 
         $mform->addElement('hidden', 'id', $this->id);
         $mform->setType('id', PARAM_INT);

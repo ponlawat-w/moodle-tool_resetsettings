@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Reset Settings
+ * Reset setting template list page
  *
  * @package    tool_resetsettings
- * @copyright  2020 Ponlawat Weerapanpisit, Adam Jenkins <adam@wisecat.net>
+ * @copyright  2020 Ponlawat Weerapanpisit <ponlawat_w@outlook.co.th>, Adam Jenkins <adam@wisecat.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -30,14 +30,19 @@ require_once(__DIR__ . '/classes/newsettings_form.php');
 
 admin_externalpage_setup('resetsettings');
 
+/** @var \moodle_page $PAGE */
+$PAGE;
+$PAGE->set_url(new \core\url('/admin/tool/resetsettings/edit.php', ['id' => $id]));
+$PAGE->set_title(get_string('pluginname', 'tool_resetsettings'));
+$PAGE->set_heading(get_string('pluginname', 'tool_resetsettings'));
+
+/** @var \core\output\core_renderer $OUTPUT */
+$OUTPUT;
+
 echo $OUTPUT->header();
-
 $table = tool_resetsettings_getsettingstable();
-echo html_writer::table($table);
-
-echo html_writer::start_tag('hr');
-
+echo \core\output\html_writer::table($table);
+echo \core\output\html_writer::start_tag('hr');
 $newsettingsform = new tool_resetsettings_newsettings_form();
 $newsettingsform->display();
-
 echo $OUTPUT->footer();

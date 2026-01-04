@@ -15,27 +15,26 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Reset Settings
+ * Language string
  *
  * @package    tool_resetsettings
- * @copyright  2020 Ponlawat Weerapanpisit, Adam Jenkins <adam@wisecat.net>
+ * @copyright  2020 Ponlawat Weerapanpisit <ponlawat_w@outlook.co.th>, Adam Jenkins <adam@wisecat.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
-$string['pluginname'] = 'Reset Settings';
-$string['resetsettings'] = 'Configure course reset settings';
-$string['newsettings'] = 'Create new settings';
-$string['settingsname'] = 'Settings Name';
-$string['createddt'] = 'Created Date';
 $string['actions'] = 'Actions';
-$string['nosettings'] = 'There are no any settings.';
-$string['blanktemplate'] = 'Blank settings';
-$string['moodledefaulttemplate'] = 'Based on Moodle default reset settings';
 $string['basedontemplate'] = 'Based on {$a}';
-$string['template'] = 'Settings Template';
+$string['blanktemplate'] = 'Blank settings';
 $string['clonedsettingname'] = '{$a} (Copy)';
 $string['copy'] = 'Copy';
-
+$string['createddt'] = 'Created Date';
 $string['deleteconfirmation'] = 'Delete Confirmation';
 $string['deleteconfirmationtext'] = 'Are you sure you want to delete setting "{$a}"?';
+$string['moodledefaulttemplate'] = 'Based on Moodle default reset settings';
+$string['newsettings'] = 'Create new settings';
+$string['nosettings'] = 'There are no any settings.';
+$string['pluginname'] = 'Reset Settings';
+$string['resetsettings'] = 'Configure course reset settings';
+$string['settingsname'] = 'Settings Name';
+$string['template'] = 'Settings Template';

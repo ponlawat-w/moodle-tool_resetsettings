@@ -15,30 +15,44 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Reset Settings
+ * Form for create a new settings template
  *
  * @package    tool_resetsettings
- * @copyright  2020 Ponlawat Weerapanpisit, Adam Jenkins <adam@wisecat.net>
+ * @copyright  2020 Ponlawat Weerapanpisit <ponlawat_w@outlook.co.th>, Adam Jenkins <adam@wisecat.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
+defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/formslib.php');
 
+/**
+ * New settings template form.
+ * Allow to select an existing template for cloning data.
+ */
 class tool_resetsettings_newsettings_form extends moodleform {
+    /**
+     * Constructor
+     */
     public function __construct() {
-        parent::__construct(new moodle_url('/admin/tool/resetsettings/edit.php'));
+        parent::__construct(new \core\url('/admin/tool/resetsettings/edit.php'));
     }
 
+    /**
+     * Get templates
+     *
+     * @return \stdClass[]
+     */
     private function gettemplates() {
         global $DB;
+        /** @var \moodle_database $DB */
+        $DB;
 
         $templates = [
             'blank' => get_string('blanktemplate', 'tool_resetsettings'),
             'default' => get_string('moodledefaulttemplate', 'tool_resetsettings'),
         ];
 
-        $settings = $DB->get_records_sql('SELECT id, name FROM {tool_resetsettings_settings} ORDER BY name ASC');
+        $settings = $DB->get_records('tool_resetsettings_settings', null, 'name ASC', 'id, name');
 
         foreach ($settings as $setting) {
             $templates[$setting->id] = get_string('basedontemplate', 'tool_resetsettings', $setting->name);
@@ -46,9 +60,14 @@ class tool_resetsettings_newsettings_form extends moodleform {
         return $templates;
     }
 
+    /**
+     * Form definition
+     *
+     * @return void
+     */
     public function definition() {
         $mform = &$this->_form;
-        $mform->addElement('html', html_writer::tag('h2', get_string('newsettings', 'tool_resetsettings')));
+        $mform->addElement('html', \core\output\html_writer::tag('h2', get_string('newsettings', 'tool_resetsettings')));
 
         $mform->addElement('select', 'template', get_string('template', 'tool_resetsettings'), $this->gettemplates());
         $mform->setType('template', PARAM_TEXT);

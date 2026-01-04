@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Reset Settings
+ * Reset settings for admin page
  *
  * @package    tool_resetsettings
- * @copyright  2020 Ponlawat Weerapanpisit, Adam Jenkins <adam@wisecat.net>
+ * @copyright  2020 Ponlawat Weerapanpisit <ponlawat_w@outlook.co.th>, Adam Jenkins <adam@wisecat.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -26,6 +26,12 @@
 defined('MOODLE_INTERNAL') || die;
 
 if ($hassiteconfig) {
-    $ADMIN->add('courses', new admin_externalpage('resetsettings', get_string('resetsettings', 'tool_resetsettings'),
-        "{$CFG->wwwroot}/{$CFG->admin}/tool/resetsettings/index.php"));
+    $ADMIN->add(
+        'courses',
+        new admin_externalpage(
+            'resetsettings',
+            get_string('resetsettings', 'tool_resetsettings'),
+            new \core\url('/admin/tool/resetsettings/templates.php')
+        )
+    );
 }

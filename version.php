@@ -15,19 +15,21 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Reset Settings
+ * Reset settings plugin version definition
  *
  * @package    tool_resetsettings
- * @copyright  2020 Ponlawat Weerapanpisit, Adam Jenkins <adam@wisecat.net>
+ * @copyright  2020 Ponlawat Weerapanpisit <ponlawat_w@outlook.co.th>, Adam Jenkins <adam@wisecat.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2020021700;
-$plugin->requires = 2019051100;
 $plugin->component = 'tool_resetsettings';
+$plugin->version = 2020021700;
+$plugin->requires = 2025041400;
+$plugin->release = '1.0.0';
+$plugin->maturity = MATURITY_STABLE;
 $plugin->dependencies = [
-  'tool_bulkreset' => 2020021600,
+  'tool_bulkreset' => 2025122400,
 ];

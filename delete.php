@@ -15,13 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Reset Settings
+ * Page for deleting a template.
  *
  * @package    tool_resetsettings
- * @copyright  2020 Ponlawat Weerapanpisit, Adam Jenkins <adam@wisecat.net>
+ * @copyright  2020 Ponlawat Weerapanpisit <ponlawat_w@outlook.co.th>, Adam Jenkins <adam@wisecat.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 
 require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
@@ -30,9 +29,18 @@ require_once(__DIR__ . '/classes/deletesettingsconfirm_form.php');
 admin_externalpage_setup('resetsettings');
 
 $id = required_param('id', PARAM_INT);
+
+/** @var \moodle_page $PAGE */
+$PAGE;
+$PAGE->set_url(new \core\url('/admin/tool/resetsettings/delete.php', ['id' => $id]));
+$PAGE->set_title(get_string('deleteconfirmation', 'tool_resetsettings'));
+$PAGE->set_heading(get_string('deleteconfirmation', 'tool_resetsettings'));
+
+/** @var \moodle_db $DB */
+$DB;
 $setting = $DB->get_record('tool_resetsettings_settings', ['id' => $id]);
 if (!$setting) {
-    throw new moodle_exception('Settings not found');
+    throw new \core\exception\moodle_exception('Settings not found');
 }
 
 $deleteconfirmform = new tool_resetsettings_deletesettingsconfirm_form($setting);
@@ -42,13 +50,12 @@ if ($deleteconfirmform->is_submitted() && !$deleteconfirmform->is_cancelled()) {
 }
 
 if ($deleteconfirmform->is_submitted() || $deleteconfirmform->is_cancelled()) {
-    redirect(new moodle_url('/admin/tool/resetsettings/index.php'));
+    redirect(new \core\url('/admin/tool/resetsettings/templates.php'));
     exit;
 }
 
+/** @var \core\output\core_renderer $OUTPUT */
+$OUTPUT;
 echo $OUTPUT->header();
-
-echo html_writer::tag('h2', get_string('deleteconfirmation', 'tool_resetsettings'));
 $deleteconfirmform->display();
-
 echo $OUTPUT->footer();

@@ -15,29 +15,47 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Reset Settings
+ * Form for delete confirmation
  *
  * @package    tool_resetsettings
- * @copyright  2020 Ponlawat Weerapanpisit, Adam Jenkins <adam@wisecat.net>
+ * @copyright  2020 Ponlawat Weerapanpisit <ponlawat_w@outlook.co.th>, Adam Jenkins <adam@wisecat.net>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-
+defined('MOODLE_INTERNAL') || die();
 require_once($CFG->libdir . '/formslib.php');
 
+/**
+ * Delete confirmation form
+ */
 class tool_resetsettings_deletesettingsconfirm_form extends moodleform {
+    /**
+     * @var \stdClass $setting a template record
+     */
     private $setting;
 
+    /**
+     * Constructor
+     *
+     * @param \stdClass $setting a settings template record
+     */
     public function __construct($setting) {
         $this->setting = $setting;
         parent::__construct();
     }
 
+    /**
+     * Form definition
+     *
+     * @return void
+     */
     public function definition() {
         $mform = &$this->_form;
 
-        $mform->addElement('html',
-            html_writer::tag('p', get_string('deleteconfirmationtext', 'tool_resetsettings', $this->setting->name)));
+        $mform->addElement(
+            'html',
+            \core\output\html_writer::tag('p', get_string('deleteconfirmationtext', 'tool_resetsettings', $this->setting->name))
+        );
 
         $mform->addElement('hidden', 'id', $this->setting->id);
         $mform->setType('id', PARAM_INT);

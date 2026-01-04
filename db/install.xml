@@ -6,10 +6,10 @@
     <TABLES>
         <TABLE NAME="tool_resetsettings_settings" COMMENT="Bulk reset schedules">
             <FIELDS>
-                <FIELD NAME="id" SEQUENCE="true" TYPE="int" NOTNULL="true" LENGTH="11" />
-                <FIELD NAME="name" SEQUENCE="false" TYPE="char" LENGTH="255" NOTNULL="true" />
-                <FIELD NAME="data" SEQUENCE="false" TYPE="text" NOTNULL="true" />
-                <FIELD NAME="created_dt" SEQUENCE="false" TYPE="int" NOTNULL="true" LENGTH="11" />
+                <FIELD NAME="id" SEQUENCE="true" TYPE="int" NOTNULL="true" LENGTH="11" COMMENT="Settings template ID" />
+                <FIELD NAME="name" SEQUENCE="false" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Settings template name" />
+                <FIELD NAME="data" SEQUENCE="false" TYPE="text" NOTNULL="true" COMMENT="Settings template data (JSON)" />
+                <FIELD NAME="created_dt" SEQUENCE="false" TYPE="int" NOTNULL="true" LENGTH="11" COMMENT="Settings template created timestamp" />
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id" />
