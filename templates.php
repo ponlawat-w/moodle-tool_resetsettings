@@ -32,7 +32,7 @@ admin_externalpage_setup('resetsettings');
 
 /** @var \moodle_page $PAGE */
 $PAGE;
-$PAGE->set_url(new \core\url('/admin/tool/resetsettings/edit.php', ['id' => $id]));
+$PAGE->set_url(new \core\url('/admin/tool/resetsettings/templates.php'));
 $PAGE->set_title(get_string('pluginname', 'tool_resetsettings'));
 $PAGE->set_heading(get_string('pluginname', 'tool_resetsettings'));
 

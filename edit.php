@@ -69,9 +69,12 @@ if (!$settingsform->is_submitted()) {
 } else if ($settingsform->is_validated()) {
     $data = $settingsform->get_data();
     $settingsname = $data->settingsname;
-    unset($data->settingsname);
-    unset($data->submitbutton);
+    unset($data->courses);
     unset($data->id);
+    unset($data->schedule);
+    unset($data->settingsname);
+    unset($data->settingstemplate);
+    unset($data->submitbutton);
     $json = json_encode($data);
     if ($id) {
         $setting->name = $settingsname;
