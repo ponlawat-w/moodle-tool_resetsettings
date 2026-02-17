@@ -42,6 +42,7 @@ class tool_resetsettings_settings_form extends tool_bulkreset_resetsettings_form
      */
     public function __construct($id, $setting = null) {
         $this->id = $id;
+        $this->showallmodsettings = true;
 
         parent::__construct(null, true);
 
